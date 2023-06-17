@@ -39,8 +39,6 @@ class NotesAdapter(
         holder.title.text = itemPosition.title
         holder.title.isSelected = true
         holder.note.text = itemPosition.note
-        holder.date.text = itemPosition.date
-        holder.date.isSelected = true
         holder.noteLayout.setCardBackgroundColor(
             holder.itemView.resources.getColor(
                 randomColor(),
@@ -99,7 +97,6 @@ class NotesAdapter(
         val noteLayout: CardView = itemView.findViewById(R.id.notes_layout)
         val title: TextView = itemView.findViewById(R.id.tv_title)
         val note: TextView = itemView.findViewById(R.id.tv_note)
-        val date: TextView = itemView.findViewById(R.id.tv_date)
     }
 
 }
