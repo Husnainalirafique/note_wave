@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:paddingHorizontal="20dp"
         android:paddingTop="35dp"
-        tools:context=".AddNotesActivity">
+        tools:context=".ui.addNote.AddNotesActivity">
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"

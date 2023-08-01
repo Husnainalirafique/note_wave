@@ -1,9 +1,10 @@
-package com.example.notewave.dataBase
+package com.example.notewave.db.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.notewave.db.dao.NoteDao
 
 @Database(entities = [Note::class], version = 1, exportSchema = false)
 abstract class NoteDatabase : RoomDatabase() {

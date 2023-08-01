@@ -1,4 +1,4 @@
-package com.example.notewave
+package com.example.notewave.ui.home
 
 import android.content.res.Configuration
 import android.os.Bundle
@@ -7,7 +7,10 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import com.example.notewave.R
+import com.example.notewave.utils.newActivity
 import com.example.notewave.databinding.ActivityMainBinding
+import com.example.notewave.ui.addNote.AddNotesActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -21,9 +24,9 @@ class MainActivity : AppCompatActivity() {
         handleBackPressed()
         setStatusBarContentVisibility()
     }
+
     private fun setupUI() {
-        val isDarkMode =
-            resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
+        val isDarkMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK == Configuration.UI_MODE_NIGHT_YES
         if (isDarkMode) {
             setDarkModeColors()
         } else {
@@ -33,26 +36,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun setDarkModeColors() {
         binding.topAppNameTv.setTextColor(ContextCompat.getColor(this, R.color.white))
-        binding.searchView.background.setTint(
-            ContextCompat.getColor(
-                this,
-                R.color.searchBarDarkModeColor
-            )
-        )
+        binding.searchView.background.setTint(resources.getColor(R.color.searchBarDarkModeColor,null))
     }
 
     private fun setLightModeColors() {
         binding.topAppNameTv.setTextColor(ContextCompat.getColor(this, R.color.black))
-        binding.searchView.background.setTint(
-            ContextCompat.getColor(
-                this,
-                R.color.searchBarLightModeColor
-            )
-        )
+        binding.searchView.background.setTint(resources.getColor(R.color.searchBarLightModeColor,null))
     }
 
     private fun setClickListeners() {
-
+        binding.createNoteButton.setOnClickListener {
+//            startActivity(Intent(this,AddNotesActivity::class.java))
+            newActivity(this, AddNotesActivity::class.java)
+        }
     }
 
     private fun handleBackPressed() {
@@ -62,12 +58,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setStatusBarContentVisibility() {
-        val insetsController = window.insetsController
-        insetsController?.setSystemBarsAppearance(
+        window.insetsController?.setSystemBarsAppearance(
             WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
             WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
         )
     }
-
-
 }

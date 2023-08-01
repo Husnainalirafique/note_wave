@@ -12,7 +12,7 @@
         android:layout_height="match_parent"
         android:layout_marginHorizontal="20dp"
         android:paddingTop="32dp"
-        tools:context=".MainActivity">
+        tools:context=".ui.home.MainActivity">
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -52,6 +52,7 @@
             app:iconifiedByDefault="false"
             app:searchIcon="@drawable/search_icon"
             android:background="@drawable/search_bg"
+            android:backgroundTint="#f0f0f0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.526"
             app:layout_constraintStart_toStartOf="parent"

@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notewave.R
-import com.example.notewave.dataBase.Note
+import com.example.notewave.db.database.Note
 import java.util.Random
 
 class NotesAdapter(
