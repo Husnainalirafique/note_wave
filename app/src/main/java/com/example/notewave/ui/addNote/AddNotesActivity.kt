@@ -17,6 +17,7 @@ class AddNotesActivity : AppCompatActivity() {
         //Functions
         setClickListeners()
         setStatusBarAppearance(window.decorView.rootView)
+
     }
 
     private fun setClickListeners() {
