@@ -6,10 +6,13 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.DiffUtil
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.example.notewave.R
 import com.example.notewave.db.Note
+import com.google.android.material.card.MaterialCardView
+import java.util.Random
 
-class MyListAdapter : ListAdapter<Note, MyListAdapter.MyViewHolder>(MyDiffCallback()) {
+class NotesAdapter : ListAdapter<Note, NotesAdapter.MyViewHolder>(MyDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.note_item, parent, false)
@@ -21,8 +24,28 @@ class MyListAdapter : ListAdapter<Note, MyListAdapter.MyViewHolder>(MyDiffCallba
     }
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val title: TextView = itemView.findViewById(R.id.tv_title)
+        private val noteDescription: TextView = itemView.findViewById(R.id.tv_note)
+        private val cardView:MaterialCardView = itemView.findViewById(R.id.notes_layout)
+
+
         fun bind(data: Note) {
-           
+            title.text = data.title
+            noteDescription.text = data.noteDescription
+            cardView.setCardBackgroundColor(itemView.context.getColor(getRandomColor()))
+        }
+
+        private fun getRandomColor(): Int {
+            val colorList = listOf(
+                R.color.notec1,
+                R.color.notec2,
+                R.color.notec3,
+                R.color.notec4,
+                R.color.notec5,
+                R.color.notec6
+            )
+            val randomIndex = Random().nextInt(colorList.size)
+            return colorList[randomIndex]
         }
     }
 
