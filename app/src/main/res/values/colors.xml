@@ -7,9 +7,7 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="searchBarLightModeColor">#f0f0f0</color>
     <color name="primaryColor">#FFB923</color>
-    <color name="searchBarDarkModeColor">#3B3B3B</color>
 
     <color name="notec1">#D9E8FC</color>
     <color name="notec2">#FFD8F4</color>

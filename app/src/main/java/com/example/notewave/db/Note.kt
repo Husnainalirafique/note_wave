@@ -1,4 +1,4 @@
-package com.example.notewave.db.database
+package com.example.notewave.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -6,5 +6,5 @@ import androidx.room.PrimaryKey
 data class Note(
     @PrimaryKey(autoGenerate = true) val id: Int,
     val title: String,
-    val note: String,
+    val noteDescription: String,
 )

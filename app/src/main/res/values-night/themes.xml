@@ -15,9 +15,5 @@
         <item name="colorControlActivated">@color/primaryColor</item>
         <item name="android:textColorHighlight">#C59F4F</item>
     </style>
-  <!-- Base application theme. -->
-    <style name="Base.Theme.NoteWave" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
-    </style>
+
 </resources>
