@@ -1,12 +1,15 @@
 package com.example.notewave.ui.home
 
 import android.os.Bundle
+import android.os.Handler
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.notewave.R
@@ -19,6 +22,7 @@ import com.example.notewave.ui.addNote.AddNotesActivity
 import com.example.notewave.utils.CustomDialog
 import com.example.notewave.utils.setStatusBarAppearance
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.system.exitProcess
 
@@ -38,12 +42,45 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handlingMethods() {
-        initLateProperties()
         setClickListeners()
-        handleBackPressed()
+        initiatingLateinitProperties()
         settingRecyclerView()
         deleteNote()
         animations()
+        handleBackPressed()
+    }
+
+    private fun setClickListeners() {
+        binding.createNoteButton.setOnClickListener {
+            newActivity(this, AddNotesActivity::class.java)
+        }
+    }
+
+    private fun initiatingLateinitProperties() {
+        noteDao = NoteDatabase.getDatabase(this).getNoteDao()
+        noteAdapter = NotesAdapter { id ->
+            deleteNoteById(id)
+        }
+
+    }
+
+    private fun settingRecyclerView() {
+        recyclerView = binding.recyclerView
+        layoutManager2 = StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL)
+        recyclerView.apply {
+            layoutManager = layoutManager2
+            adapter = noteAdapter
+        }
+    }
+
+    private fun gettingInitialNotes(){
+        lifecycleScope.launch(Dispatchers.IO) {
+            noteAdapter.submitList(noteDao.getAllNotes())
+            launch(Dispatchers.Main){
+                delay(150)
+                recyclerView.scrollToPosition(0)
+            }
+        }
     }
 
     private fun deleteNote() {
@@ -61,12 +98,6 @@ class MainActivity : AppCompatActivity() {
         scope.launch(Dispatchers.IO) {
             noteDao.deleteById(id)
             noteAdapter.submitList(noteDao.getAllNotes())
-        }
-    }
-
-    private fun setClickListeners() {
-        binding.createNoteButton.setOnClickListener {
-            newActivity(this, AddNotesActivity::class.java)
         }
     }
 
@@ -96,30 +127,6 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun initLateProperties() {
-        noteDao = NoteDatabase.getDatabase(this).getNoteDao()
-        noteAdapter = NotesAdapter { id ->
-            deleteNoteById(id)
-        }
-
-    }
-
-    private fun settingRecyclerView() {
-        recyclerView = binding.recyclerView
-        layoutManager2 = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        recyclerView.apply {
-            layoutManager = layoutManager2
-            adapter = noteAdapter
-        }
-    }
-
-    override fun onResume() {
-        lifecycleScope.launch(Dispatchers.IO) {
-            noteAdapter.submitList(noteDao.getAllNotes())
-        }
-        super.onResume()
-    }
-
     private fun handleBackPressed() {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
@@ -139,6 +146,11 @@ class MainActivity : AppCompatActivity() {
 
             }
         })
+    }
+
+    override fun onResume() {
+       gettingInitialNotes()
+        super.onResume()
     }
 
 
