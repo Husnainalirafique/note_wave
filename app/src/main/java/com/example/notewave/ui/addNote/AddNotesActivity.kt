@@ -3,10 +3,10 @@ package com.example.notewave.ui.addNote
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
 import com.example.notewave.R
-import com.example.notewave.adapter.NotesAdapter
 import com.example.notewave.databinding.ActivityAddNotesBinding
 import com.example.notewave.db.Note
 import com.example.notewave.db.NoteDao
@@ -22,15 +22,12 @@ class AddNotesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_notes)
-
         //Functions
-        setClickListeners()
-        setStatusBarAppearance(window.decorView.rootView)
-
-        //Notes
-        noteDao = NoteDatabase.getDatabase(this).getNoteDao()
+        initLateProperties()
         setNotes()
-
+        backButton()
+        setStatusBarAppearance(window.decorView.rootView)
+        handleBackPressed()
     }
 
     private fun setNotes() {
@@ -42,15 +39,29 @@ class AddNotesActivity : AppCompatActivity() {
                     noteDao.insert(Note(0, title.toString(), note.toString()))
                     finish()
                 }
-            } else{
-                Toast.makeText(this@AddNotesActivity, "Fill both fields", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this@AddNotesActivity, "Fill both fields!", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
 
-    private fun setClickListeners() {
+    private fun initLateProperties() {
+        noteDao = NoteDatabase.getDatabase(this).getNoteDao()
+    }
+
+    private fun backButton() {
         binding.backButton.setOnClickListener {
             finish()
         }
+    }
+
+    private fun handleBackPressed() {
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                finish()
+            }
+
+        })
     }
 }

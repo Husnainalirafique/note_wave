@@ -12,6 +12,8 @@ interface NoteDao {
     suspend fun insert(note: Note)
 
     @Query("select * from notes_table order by id ASC")
-    fun getAllNotes(): List<Note>
+    suspend fun getAllNotes(): List<Note>
 
+    @Query("DELETE FROM NOTES_TABLE")
+    suspend fun deleteNote()
 }

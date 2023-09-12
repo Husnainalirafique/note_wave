@@ -12,6 +12,7 @@ android {
     defaultConfig {
         applicationId "com.example.notewave"
         minSdk 30
+        //noinspection OldTargetApi
         targetSdk 34
         versionCode 1
         versionName "1.0"
@@ -46,7 +47,6 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
-
     //Room DB
     def room_version = "2.5.2"
     implementation "androidx.room:room-runtime:$room_version"
