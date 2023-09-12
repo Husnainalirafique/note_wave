@@ -64,14 +64,18 @@
             android:layout_marginStart="5dp"
             android:layout_marginTop="20dp"
             android:background="@android:color/transparent"
-            android:hint="@string/title"
-            android:textColorHint="#9A9A9A"
-            android:textSize="40sp"
-            android:maxLength="55"
             android:fontFamily="@font/roboto_bold"
+            android:hint="@string/title"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="text"
+            android:maxLength="55"
+            android:textColorHint="#9A9A9A"
+            android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <EditText
             android:id="@+id/noteDescriptionEditText"
@@ -85,10 +89,12 @@
             android:hint="@string/type_something"
             android:lineSpacingMultiplier="1.8"
             android:textColorHint="#9A9A9A"
+            android:importantForAutofill="no"
             android:textSize="22sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/noteTitleEditText" />
+            app:layout_constraintTop_toBottomOf="@+id/noteTitleEditText"
+            />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

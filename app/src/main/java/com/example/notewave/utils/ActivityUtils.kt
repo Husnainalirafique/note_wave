@@ -39,7 +39,7 @@ class CustomDialog {
             val dialog = Dialog(context)
             dialog.apply {
                 setContentView(R.layout.cutom_delete_dialog)
-                setCancelable(true)
+                setCancelable(false)
                 window?.setBackgroundDrawableResource(R.drawable.custom_dialog_bg)
                 findViewById<Button>(R.id.deleteAllButton).setOnClickListener {
                     callback.invoke()

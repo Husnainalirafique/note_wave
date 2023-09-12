@@ -33,6 +33,7 @@ class NotesAdapter : ListAdapter<Note, NotesAdapter.MyViewHolder>(MyDiffCallback
             title.text = data.title
             noteDescription.text = data.noteDescription
             cardView.setCardBackgroundColor(itemView.context.getColor(getRandomColor()))
+
         }
 
         private fun getRandomColor(): Int {

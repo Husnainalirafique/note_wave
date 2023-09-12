@@ -48,7 +48,7 @@
     <string name="it_s_empty">It\'s Empty</string>
     <string name="empty_logo_description">Hmm.. looks like you don\'t \n have any notes</string>
     <string name="title">Title</string>
-    <string name="type_something">Type something...</string>
+    <string name="type_something">Note Content</string>
     <string name="item_tv_title">Title</string>
     <string name="note">Note</string>
     <string name="date">Date</string>

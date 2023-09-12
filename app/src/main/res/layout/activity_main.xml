@@ -22,7 +22,7 @@
             app:layout_constraintBottom_toTopOf="@+id/recyclerView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/searchView"
-            app:layout_constraintVertical_bias="0.25" />
+            app:layout_constraintVertical_bias="0.13999999" />
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView"
@@ -45,7 +45,7 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -60,7 +60,7 @@
             android:fontFamily="@font/roboto_regular"
             android:text="@string/create_note"
             android:textAllCaps="false"
-            android:textColor="@color/black"
+            android:textColor="#2C2B2B"
             android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />

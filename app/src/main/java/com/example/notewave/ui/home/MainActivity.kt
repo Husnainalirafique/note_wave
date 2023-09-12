@@ -1,6 +1,8 @@
 package com.example.notewave.ui.home
 
 import android.os.Bundle
+import android.view.ContextMenu
+import android.view.MenuItem
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
@@ -36,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         initLateProperties()
         setClickListeners()
         handleBackPressed()
-        settingNoteAdapter()
+        settingRecyclerView()
         deleteNote()
         animations()
     }
@@ -89,7 +91,7 @@ class MainActivity : AppCompatActivity() {
         noteDao = NoteDatabase.getDatabase(this).getNoteDao()
     }
 
-    private fun settingNoteAdapter() {
+    private fun settingRecyclerView() {
         binding.recyclerView.apply {
             layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
             adapter = noteAdapter
@@ -110,6 +112,7 @@ class MainActivity : AppCompatActivity() {
             }
         })
     }
+
 
 }
 
