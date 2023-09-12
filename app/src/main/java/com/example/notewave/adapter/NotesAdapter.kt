@@ -6,34 +6,37 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.DiffUtil
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import com.example.notewave.R
 import com.example.notewave.db.Note
 import com.google.android.material.card.MaterialCardView
 import java.util.Random
 
-class NotesAdapter : ListAdapter<Note, NotesAdapter.MyViewHolder>(MyDiffCallback()) {
+class NotesAdapter(private val callBack: (Int) -> Unit) : ListAdapter<Note, NotesAdapter.MyViewHolder>(MyDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.note_item, parent, false)
-        return MyViewHolder(view)
+        return MyViewHolder(view,callBack)
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class MyViewHolder(itemView: View, private val callBack:(Int) -> Unit) : RecyclerView.ViewHolder(itemView) {
+
         private val title: TextView = itemView.findViewById(R.id.tv_title)
         private val noteDescription: TextView = itemView.findViewById(R.id.tv_note)
-        private val cardView:MaterialCardView = itemView.findViewById(R.id.notes_layout)
-
-
+        private val cardView: MaterialCardView = itemView.findViewById(R.id.notes_layout)
+        private val delImg:ImageView = itemView.findViewById(R.id.deleteSweep)
         fun bind(data: Note) {
             title.text = data.title
             noteDescription.text = data.noteDescription
             cardView.setCardBackgroundColor(itemView.context.getColor(getRandomColor()))
-
+            delImg.setOnClickListener {
+                callBack.invoke(data.id)
+            }
         }
 
         private fun getRandomColor(): Int {

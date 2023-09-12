@@ -11,6 +11,7 @@ import com.example.notewave.databinding.ActivityAddNotesBinding
 import com.example.notewave.db.Note
 import com.example.notewave.db.NoteDao
 import com.example.notewave.db.NoteDatabase
+import com.example.notewave.ui.home.noteAdapter
 import com.example.notewave.utils.setStatusBarAppearance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -36,7 +37,8 @@ class AddNotesActivity : AppCompatActivity() {
             val note = binding.noteDescriptionEditText.text
             if (title.toString().isNotEmpty() && note.toString().isNotEmpty()) {
                 scope.launch(Dispatchers.IO) {
-                    noteDao.insert(Note(0, title.toString(), note.toString()))
+                    val newNote = Note(0, title.toString(), note.toString())
+                    noteDao.insert(newNote)
                     finish()
                 }
             } else {

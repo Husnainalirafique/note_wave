@@ -1,10 +1,9 @@
 package com.example.notewave.ui.home
 
 import android.os.Bundle
-import android.view.ContextMenu
-import android.view.MenuItem
 import android.view.View
 import androidx.activity.OnBackPressedCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
@@ -21,11 +20,15 @@ import com.example.notewave.utils.CustomDialog
 import com.example.notewave.utils.setStatusBarAppearance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlin.system.exitProcess
+
+lateinit var noteAdapter: NotesAdapter
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var noteAdapter: NotesAdapter
     private lateinit var noteDao: NoteDao
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var layoutManager2: StaggeredGridLayoutManager
     private val scope = lifecycleScope
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +54,13 @@ class MainActivity : AppCompatActivity() {
                     noteAdapter.submitList(noteDao.getAllNotes())
                 }
             }
+        }
+    }
+
+    private fun deleteNoteById(id: Int) {
+        scope.launch(Dispatchers.IO) {
+            noteDao.deleteById(id)
+            noteAdapter.submitList(noteDao.getAllNotes())
         }
     }
 
@@ -87,13 +97,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initLateProperties() {
-        noteAdapter = NotesAdapter()
         noteDao = NoteDatabase.getDatabase(this).getNoteDao()
+        noteAdapter = NotesAdapter { id ->
+            deleteNoteById(id)
+        }
+
     }
 
     private fun settingRecyclerView() {
-        binding.recyclerView.apply {
-            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        recyclerView = binding.recyclerView
+        layoutManager2 = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        recyclerView.apply {
+            layoutManager = layoutManager2
             adapter = noteAdapter
         }
     }
@@ -108,7 +123,20 @@ class MainActivity : AppCompatActivity() {
     private fun handleBackPressed() {
         onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
-                finish()
+                val builder = AlertDialog.Builder(this@MainActivity)
+                with(builder) {
+                    setMessage("Close application!")
+                    setPositiveButton("Yes") { _, _ ->
+                        exitProcess(0)
+                    }
+                    setNegativeButton("No") { dialog, _ ->
+                        dialog.cancel()
+                    }
+                    setCancelable(false)
+                    create()
+                    show()
+                }
+
             }
         })
     }
