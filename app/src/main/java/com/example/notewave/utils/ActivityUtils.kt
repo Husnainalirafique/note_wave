@@ -5,15 +5,10 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.View
 import android.view.WindowInsetsController
 import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import com.example.notewave.R
 
 fun newActivity(context: Context, targetActivity: Class<out Activity>, dataBundle: Bundle? = null) {

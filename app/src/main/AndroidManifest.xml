@@ -14,6 +14,7 @@
         tools:targetApi="31">
         <activity
             android:name=".ui.addNote.AddNotesActivity"
+            android:windowSoftInputMode="stateVisible"
             android:exported="false">
         </activity>
         <activity

@@ -6,32 +6,40 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file('C:\\Users\\AYAT LAPTOP POINT\\AndroidStudioProjects\\NoteWave\\app\\ks.jks')
+            storePassword '12345678'
+            keyAlias 'myNoteWaveKey'
+            keyPassword '12345678'
+        }
+    }
     namespace 'com.example.notewave'
     compileSdk 34
 
     defaultConfig {
         applicationId "com.example.notewave"
         minSdk 30
-        //noinspection OldTargetApi
         targetSdk 34
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.release
     }
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_19
-        targetCompatibility JavaVersion.VERSION_19
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = '19'
+        jvmTarget = '1.8'
     }
     buildFeatures{
         dataBinding = true

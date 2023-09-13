@@ -8,11 +8,21 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="primaryColor">#FFB923</color>
-
     <color name="notec1">#D9E8FC</color>
     <color name="notec2">#FFD8F4</color>
     <color name="notec3">#FDE99D</color>
     <color name="notec4">#B0E9CA</color>
     <color name="notec5">#FFEADD</color>
-    <color name="notec6">#FCFAD9    </color>
+    <color name="notec6">#FCFAD9</color>
+    <color name="notec7">#FFC6A0</color>
+    <color name="notec8">#A7D7C5</color>
+    <color name="notec9">#F3A1A1</color>
+    <color name="notec10">#9DB4FF</color>
+    <color name="notec11">#E9C2C2</color>
+
+    <color name="searchViewBgColor">#f0f0f0</color>
+    <color name="customDialogBgColor">@color/white</color>
+    <color name="activityBgColor">@color/white</color>
+    <color name="logoColor">@color/black</color>
+
 </resources>

@@ -1,5 +1,6 @@
 package com.example.notewave.db
 
+import android.accounts.AuthenticatorDescription
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -18,4 +19,8 @@ interface NoteDao {
 
     @Query("DELETE FROM notes_table WHERE id = :noteId")
     suspend fun deleteById(noteId: Int)
+
+    @Query("UPDATE notes_table SET title = :newTitle, noteDescription = :newDescription WHERE id = :noteId")
+    suspend fun updateNote(noteId: Int, newTitle: String, newDescription: String)
+
 }

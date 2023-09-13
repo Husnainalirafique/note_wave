@@ -1,5 +1,6 @@
 package com.example.notewave.adapter
 
+import android.os.Bundle
 import androidx.recyclerview.widget.ListAdapter
 import android.view.LayoutInflater
 import androidx.recyclerview.widget.RecyclerView
@@ -10,6 +11,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.notewave.R
 import com.example.notewave.db.Note
+import com.example.notewave.ui.addNote.AddNotesActivity
+import com.example.notewave.utils.newActivity
 import com.google.android.material.card.MaterialCardView
 import java.util.Random
 
@@ -37,16 +40,26 @@ class NotesAdapter(private val callBack: (Int) -> Unit) : ListAdapter<Note, Note
             delImg.setOnClickListener {
                 callBack.invoke(data.id)
             }
+            itemView.setOnClickListener {
+                val bundle = Bundle().apply {
+                    putInt("id",data.id)
+                    putString("title",data.title)
+                    putString("noteDescription",data.noteDescription)
+                }
+                newActivity(itemView.context,AddNotesActivity::class.java,bundle)
+            }
         }
 
-        private fun getRandomColor(): Int {
+        private fun getRandomColor(): Int{
             val colorList = listOf(
                 R.color.notec1,
                 R.color.notec2,
                 R.color.notec3,
                 R.color.notec4,
                 R.color.notec5,
-                R.color.notec6
+                R.color.notec8,
+                R.color.notec9,
+                R.color.notec10,
             )
             val randomIndex = Random().nextInt(colorList.size)
             return colorList[randomIndex]

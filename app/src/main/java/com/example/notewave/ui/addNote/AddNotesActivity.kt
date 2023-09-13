@@ -2,6 +2,7 @@ package com.example.notewave.ui.addNote
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.databinding.DataBindingUtil
@@ -11,7 +12,6 @@ import com.example.notewave.databinding.ActivityAddNotesBinding
 import com.example.notewave.db.Note
 import com.example.notewave.db.NoteDao
 import com.example.notewave.db.NoteDatabase
-import com.example.notewave.ui.home.noteAdapter
 import com.example.notewave.utils.setStatusBarAppearance
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -23,22 +23,35 @@ class AddNotesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_add_notes)
-        //Functions
-        initLateProperties()
-        setNotes()
-        backButton()
         setStatusBarAppearance(window.decorView.rootView)
+        noteDao = NoteDatabase.getDatabase(this).getNoteDao()
+
+        //Functions
+        setOnClickListener()
+        setNotes()
+        updateNote()
         handleBackPressed()
     }
 
+    private fun setOnClickListener() {
+        binding.noteTitleEditText.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_NEXT) {
+                binding.noteDescriptionEditText.requestFocus()
+                binding.noteDescriptionEditText.setSelection(binding.noteDescriptionEditText.text.length)
+                return@setOnEditorActionListener true
+            }
+            false
+        }
+    }
+
     private fun setNotes() {
+        binding.noteTitleEditText.requestFocus()
         binding.noteSaveButton.setOnClickListener {
             val title = binding.noteTitleEditText.text
             val note = binding.noteDescriptionEditText.text
             if (title.toString().isNotEmpty() && note.toString().isNotEmpty()) {
                 scope.launch(Dispatchers.IO) {
-                    val newNote = Note(0, title.toString(), note.toString())
-                    noteDao.insert(newNote)
+                    noteDao.insert(Note(0, title.toString(), note.toString()))
                     finish()
                 }
             } else {
@@ -48,14 +61,28 @@ class AddNotesActivity : AppCompatActivity() {
         }
     }
 
-    private fun initLateProperties() {
-        noteDao = NoteDatabase.getDatabase(this).getNoteDao()
-    }
+    private fun updateNote() {
+        intent.extras?.apply {
+            val id = getInt("id")
+            val title = getString("title")
+            val noteDescription = getString("noteDescription")
 
-    private fun backButton() {
-        binding.backButton.setOnClickListener {
-            finish()
+            binding.apply {
+                val titleEt = noteTitleEditText
+                val noteEt = noteDescriptionEditText
+                titleEt.setText(title)
+                noteEt.setText(noteDescription)
+                titleEt.setSelection(titleEt.text.length)
+                titleEt.requestFocus()
+                noteSaveButton.setOnClickListener {
+                    scope.launch(Dispatchers.IO) {
+                        noteDao.updateNote(id, titleEt.text.toString(), noteEt.text.toString())
+                        finish()
+                    }
+                }
+            }
         }
+
     }
 
     private fun handleBackPressed() {
@@ -65,5 +92,8 @@ class AddNotesActivity : AppCompatActivity() {
             }
 
         })
+        binding.backButton.setOnClickListener {
+            finish()
+        }
     }
 }

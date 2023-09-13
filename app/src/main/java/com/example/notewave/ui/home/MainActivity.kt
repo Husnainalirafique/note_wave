@@ -1,15 +1,12 @@
 package com.example.notewave.ui.home
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.View
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.example.notewave.R
@@ -26,11 +23,10 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.system.exitProcess
 
-lateinit var noteAdapter: NotesAdapter
-
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var noteDao: NoteDao
+    private lateinit var noteAdapter: NotesAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var layoutManager2: StaggeredGridLayoutManager
     private val scope = lifecycleScope

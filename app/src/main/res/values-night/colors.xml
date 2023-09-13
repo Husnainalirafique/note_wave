@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="searchViewBgColor">#394147</color>
+    <color name="customDialogBgColor">#424242</color>
+    <color name="activityBgColor">#212225</color>
+    <color name="logoColor">@color/white</color>
+
+</resources>

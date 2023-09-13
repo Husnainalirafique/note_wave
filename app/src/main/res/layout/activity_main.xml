@@ -2,16 +2,12 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginHorizontal="20dp"
+        android:paddingHorizontal="15dp"
         android:paddingTop="32dp"
+        android:background="@color/activityBgColor"
         tools:context=".ui.home.MainActivity">
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -19,19 +15,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/delete_bin"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+            app:layout_constraintBottom_toBottomOf="@+id/searchView"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/searchView"
-            app:layout_constraintVertical_bias="0.13999999" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.84000003" />
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/searchView"
-            android:layout_width="300dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="2dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="32dp"
             android:background="@drawable/search_bg"
-            android:backgroundTint="#f0f0f0"
+            android:backgroundTint="@color/searchViewBgColor"
             android:elevation="3dp"
             app:iconifiedByDefault="false"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,9 +43,9 @@
             android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:spanCount="2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchView"
+            app:spanCount="2"
             tools:listitem="@layout/note_item" />
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/createNoteButton"
@@ -67,12 +62,13 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <ImageView
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/empty_notes_logo"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/createNoteButton"
             app:layout_constraintEnd_toEndOf="parent"
-            android:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/searchView" />
     </androidx.constraintlayout.widget.ConstraintLayout>
