@@ -26,6 +26,7 @@ class AddNotesActivity : AppCompatActivity() {
         setStatusBarAppearance(window.decorView.rootView)
         noteDao = NoteDatabase.getDatabase(this).getNoteDao()
 
+
         //Functions
         setOnClickListener()
         setNotes()
@@ -55,12 +56,10 @@ class AddNotesActivity : AppCompatActivity() {
                     finish()
                 }
             } else {
-                Toast.makeText(this@AddNotesActivity, "Fill both fields!", Toast.LENGTH_SHORT)
-                    .show()
+                Toast.makeText(this@AddNotesActivity, "Fill both fields!", Toast.LENGTH_SHORT).show()
             }
         }
     }
-
     private fun updateNote() {
         intent.extras?.apply {
             val id = getInt("id")

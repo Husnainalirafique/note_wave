@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         setClickListeners()
         initiatingLateinitProperties()
         settingRecyclerView()
-        deleteNote()
+        deleteAllNote()
         animations()
         handleBackPressed()
     }
@@ -54,9 +54,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initiatingLateinitProperties() {
         noteDao = NoteDatabase.getDatabase(this).getNoteDao()
-        noteAdapter = NotesAdapter { id ->
-            deleteNoteById(id)
-        }
+        noteAdapter = NotesAdapter { id -> deleteNoteById(id) }
 
     }
 
@@ -79,11 +77,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun deleteNote() {
+    private fun deleteAllNote() {
         binding.deleteNote.setOnClickListener {
             CustomDialog.showDialog(this@MainActivity) {
                 scope.launch(Dispatchers.IO) {
-                    noteDao.deleteNote()
+                    noteDao.deleteAllNote()
                     noteAdapter.submitList(noteDao.getAllNotes())
                 }
             }
@@ -148,7 +146,6 @@ class MainActivity : AppCompatActivity() {
        gettingInitialNotes()
         super.onResume()
     }
-
 
 }
 
